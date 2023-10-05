@@ -65,14 +65,14 @@ def crear_org(request):
 
 @login_required
 def ver_org(request):
-    organization = Organization1.objects.filter(user_type=request.user.extendeddata)
+    organization = Organization1.objects.filter(user_type=request.user.extendeddata,deleted_date__isnull=True)
     data_context={'my_orglist':organization}
     return render(request, 'lista_organizacion.html', data_context)
 
 
 @login_required
 def vista_org(request):
-    organization = Organization1.objects.all()
+    organization = Organization1.objects.filter(deleted_date__isnull=True)
     form = OrgSearchForm(request.POST)
     data_context={'org_list':organization,'form':form}
     if request.method == 'POST':
