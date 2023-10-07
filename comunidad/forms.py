@@ -27,7 +27,7 @@ class UserProfileForm(forms.ModelForm):
 class NuevaOrg1(forms.ModelForm):
     class Meta:
         model = Organization1
-        fields = ['organization_name','organization_mail','organization_address','organization_web','organization_description','organization_type']
+        fields = ['organization_name','organization_mail','organization_address','organization_web','organization_description','organization_type','volunteer_count']
 
 class OrgSearchForm(forms.Form):
     nombre = forms.CharField(max_length=100, required=False, label='Nombre de la organización')

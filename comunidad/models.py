@@ -21,12 +21,19 @@ class Organization1(models.Model):
         ('Alivio de la Pobreza','Alivio de la Pobreza'),
         ('Derechos de los Refugiados','Derechos de los Refugiados')
     ]
+    VOLUNTEER_CHOICES = [
+        ('1-10', '1 a 10'),
+        ('10-30', '10 a 30'),
+        ('30-50', '30 a 50'),
+        ('+ 50', '+ 50'),
+    ]
     organization_name = models.CharField(max_length=500, validators=[RegexValidator(r'^[a-zA-Z0-9\s,.]*$', 'Ingresa un nombre válido')])
     organization_mail = models.EmailField(max_length=300, unique=True)
     organization_address = models.CharField(max_length=800)
     organization_web = models.CharField(max_length=400)
     organization_description = models.TextField(max_length=2000)
     organization_type = models.CharField(max_length=300, choices=TYPES_CHOICES)
+    volunteer_count = models.CharField(max_length=10, choices=VOLUNTEER_CHOICES,null=True)
     created_date = models.DateTimeField(default=timezone.now,blank=True , null=True)
     deleted_date = models.DateTimeField(blank=True , null=True)
     user_type = models.ForeignKey(ExtendedData, on_delete=models.CASCADE)
