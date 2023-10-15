@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import NuevaOrg1,CreateUserForm,UserProfileForm,OrgSearchForm,EditOrganization,CommentForm, InteresaForm
-from .models import ExtendedData,Organization1,Comment,Interesados
+from .forms import AuthenticationUserForm , CreateUserForm , UserProfileForm, UserLanguageForm,NuevaOrg1,OrgSearchForm,CommentForm,EditOrganization,InteresaForm
+from .models import ExtendedData,PreferredLanguage,Organization1,Comment,Interesados
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -17,18 +17,23 @@ def inicio_comunidad(request):
 def createuser(request):
     user_form = CreateUserForm()
     user_profile=UserProfileForm()
+    user_language=UserLanguageForm()
     error_message = None
-    data_context = {'user_form':user_form,'user_profile':user_profile}
+    data_context = {'user_form':user_form,'user_profile':user_profile,'user_language':user_language}
     if request.method=='POST':
         print(request.POST)
         user_form=CreateUserForm(request.POST)
         user_profile=UserProfileForm(request.POST)
-        print(user_form.errors,user_profile.errors)
+        user_language=UserLanguageForm(request.POST)
+        print(user_form.errors,user_profile.errors,user_language.errors)
         if user_form.is_valid():
             user_form.save()
             user_to_profile = User.objects.get(username=request.POST.get('username'))
             user_extended_data = ExtendedData.objects.create(user=user_to_profile,user_type=request.POST.get('user_type'))
             user_extended_data.save()
+            user_to_profile = User.objects.get(username=request.POST.get('username'))
+            user_prefered_language =PreferredLanguage.objects.create(user=user_to_profile,preferred_language=request.POST.get('preferred_language'))
+            user_prefered_language.save()
             return redirect('login')
         else:
             error_message = "Verifica tus datos, contiene valores NO validos"
@@ -101,10 +106,12 @@ def get_orgdata(request,organization_id):
     comment_form = CommentForm()
     if request.method == 'POST' and not request.user.extendeddata.user_type == 'R':
         comment_form = CommentForm(request.POST)
+        print(comment_form.errors)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.user = request.user
             comment.organization = organization
+            comment.preferred_language = request.user.preferredlanguage
             comment.save()
             comment_form = CommentForm()
     context = {

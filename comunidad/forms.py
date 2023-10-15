@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Organization1,ExtendedData,Comment,Interesados
+from .models import ExtendedData,PreferredLanguage,Organization1,Comment,Interesados
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
@@ -23,6 +23,11 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model=ExtendedData
         fields ="__all__"
+        
+class UserLanguageForm(forms.ModelForm):
+    class Meta:
+        model=PreferredLanguage
+        fields = "__all__"
 
 class NuevaOrg1(forms.ModelForm):
     class Meta:

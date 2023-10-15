@@ -7,8 +7,19 @@ from django.contrib.auth.models import User
 # Create your models here.
 class ExtendedData(models.Model):
     TYPE_CHOICES = [("V","Voluntario"),("R","Representante")]
+    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     user_type = models.CharField(max_length=1,choices=TYPE_CHOICES)
-    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE) #De uno a uno
+
+class PreferredLanguage(models.Model):
+    LANGUAGE_CHOICES = [
+        ('es', 'Español'),
+        ('en', 'Inglés'),
+        ('fr', 'Francés'),
+        ('it', 'Italiano'),
+        ('ru', 'Ruso'),
+    ]
+    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    preferred_language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES, null=True) 
 
 class Organization1(models.Model):
     TYPES_CHOICES = [
@@ -43,6 +54,7 @@ class Comment(models.Model):
     organization = models.ForeignKey(Organization1, on_delete=models.CASCADE)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
+    preferred_language = models.ForeignKey(PreferredLanguage,on_delete=models.CASCADE, null=True)
     def __str__(self):
         return f'Comment by {self.user.username} on {self.organization.organization_name}'
 
