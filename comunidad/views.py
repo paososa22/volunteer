@@ -4,6 +4,9 @@ from .models import ExtendedData,PreferredLanguage,Organization1,Comment,Interes
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.contrib.auth import get_user
+from django.shortcuts import render
+import requests, uuid, json
 
 # Create your views here.
 @login_required
@@ -32,8 +35,8 @@ def createuser(request):
             user_extended_data = ExtendedData.objects.create(user=user_to_profile,user_type=request.POST.get('user_type'))
             user_extended_data.save()
             user_to_profile = User.objects.get(username=request.POST.get('username'))
-            user_prefered_language =PreferredLanguage.objects.create(user=user_to_profile,preferred_language=request.POST.get('preferred_language'))
-            user_prefered_language.save()
+            user_preferred_language =PreferredLanguage.objects.create(user=user_to_profile,preferred_language=request.POST.get('preferred_language'))
+            user_preferred_language.save()
             return redirect('login')
         else:
             error_message = "Verifica tus datos, contiene valores NO validos"
@@ -101,9 +104,26 @@ def vista_org(request):
 
 @login_required
 def get_orgdata(request,organization_id):
+    key = "243deaf16b8b4ed6b39ef52fe0ac892e"
+    endpoint ="https://api.cognitive.microsofttranslator.com/"
+    location = "eastus"
+
+    path = '/translate'
+    constructed_url = endpoint + path
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': location,
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
     organization = Organization1.objects.get(id=organization_id)
     comments = Comment.objects.filter(organization=organization).order_by('-created_date')
     comment_form = CommentForm()
+    user = get_user(request)
+    preferred_language = user.preferredlanguage.preferred_language
+    translated_comments = []
+
     if request.method == 'POST' and not request.user.extendeddata.user_type == 'R':
         comment_form = CommentForm(request.POST)
         print(comment_form.errors)
@@ -112,11 +132,23 @@ def get_orgdata(request,organization_id):
             comment.user = request.user
             comment.organization = organization
             comment.preferred_language = request.user.preferredlanguage
-            comment.save()
+            for comment in comments:
+                source_language = comment.preferred_language.preferred_language
+                text_to_translate = comment.text
+                translation_params = {
+                    'api-version': '3.0',
+                    'from': source_language,
+                    'to': [preferred_language],
+                }
+                translation_request = requests.post(constructed_url, params=translation_params, headers=headers, json=[{'text': text_to_translate}])
+                translation_response = translation_request.json()
+                print(json.dumps(translation_response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
+                translated_comments.append(comment)
+                comment_form.save()
             comment_form = CommentForm()
     context = {
         'Organitation': organization,
-        'comments': comments,
+        'comments': translated_comments,
         'comment_form': comment_form,
     }
     return render(request, 'get_orgdata.html', context)
