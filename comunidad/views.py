@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import AuthenticationUserForm , CreateUserForm , UserProfileForm, UserLanguageForm,NuevaOrg1,OrgSearchForm,CommentForm,EditOrganization,InteresaForm
+from .forms import AuthenticationUserForm , CreateUserForm , UserProfileForm, UserLanguageForm,NuevaOrg1,OrgSearchForm,CommentForm,EditOrganization,InteresaForm,EditMailOrganization,EditNameOrganization
 from .models import ExtendedData,PreferredLanguage,Organization1,Comment,Interesados
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -178,6 +178,37 @@ def update_organizationdata(request, organization_id):
         else:
             data_context['message'] = "No se pudo actualizar"
     return render(request, 'update_orgdata.html', data_context)
+
+@login_required
+def update_organizationname(request, organization_id):
+    organization = Organization1.objects.get(id=organization_id)
+    data_context = {'organization': organization}
+    formularioname = EditNameOrganization()
+    data_context ['form_edit_name'] = formularioname
+    if request.method == "POST":
+        formularioname =EditNameOrganization(request.POST, instance=organization) 
+        if formularioname.is_valid():
+            formularioname.save()
+            data_context['message'] = "Nombre de organización actualizado"
+        else:
+            data_context['message'] = "No se pudo actualizar el nombre de la organización"
+
+    return render(request, 'update_orgname.html', data_context)
+
+@login_required
+def update_organizationmail(request, organization_id):
+    organization = Organization1.objects.get(id=organization_id)
+    data_context = {'organization': organization}
+    formulariomail = EditNameOrganization()
+    data_context ['form_edit_mail'] = formulariomail
+    if request.method == "POST":
+        formulariomail =EditNameOrganization(request.POST, instance=organization) 
+        if formulariomail.is_valid():
+            formulariomail.save()
+            data_context['message'] = "Nombre de organización actualizado"
+        else:
+            data_context['message'] = "No se pudo actualizar el nombre de la organización"
+    return render(request, 'update_orgmail.html', data_context)
 
 @login_required
 def view_comments(request, organization_id):

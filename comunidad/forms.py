@@ -41,7 +41,17 @@ class OrgSearchForm(forms.Form):
 class EditOrganization(forms.ModelForm):
     class Meta:
         model = Organization1
-        fields = [ 'organization_web']
+        fields = ['organization_web']
+
+class EditNameOrganization(forms.ModelForm):
+    class Meta:
+        model = Organization1
+        fields = [ 'organization_name']
+
+class EditMailOrganization(forms.ModelForm):
+    class Meta:
+        model = Organization1
+        fields = [ 'organization_mail']
 
 class CommentForm(forms.ModelForm):
     class Meta:
