@@ -85,6 +85,20 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.mysql',
+        #'NAME': 'kindly_cpsfr',
+        #'USER': 'dscadmin',
+        #'PASSWORD': 'LaSalle$23',
+        #'HOST': 'dscmysqlcpss2023.mysql.database.azure.com',
+        #'PORT': '3306',
+        #'OPTIONS': {  
+        #'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        #}
+    #}
+#}
+
 
 
 # Password validation

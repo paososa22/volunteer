@@ -153,8 +153,15 @@
                 <a href="{% url 'delete_organization' Organitation.id %}" class="btn btn-outline-primary btn-block mb-2  mx-1">
                     <i class="fas fa-trash"></i> Eliminar
                 </a>
+                <a href="{% url 'update_organizationname' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">
+                    <i class="fas fa-edit"></i> Editar Nombre
+                </a>
                 <a href="{% url 'update_organizationdata' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">
                     <i class="fas fa-edit"></i> Editar Web
+                </a>
+
+                <a href="{% url 'update_organizationmail' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">
+                    <i class="fas fa-edit"></i> Editar Mail
                 </a>
             </li>
             
