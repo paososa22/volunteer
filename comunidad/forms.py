@@ -37,6 +37,9 @@ class NuevaOrg1(forms.ModelForm):
 class OrgSearchForm(forms.Form):
     nombre = forms.CharField(max_length=100, required=False, label='Nombre de la organización')
     tipo = forms.ChoiceField(choices=[('', 'Sin selección')] +Organization1.TYPES_CHOICES, required=False, label='Tipo de organización')
+    numero_voluntarios= forms.ChoiceField(choices=[('', 'Sin selección')] +Organization1.VOLUNTEER_CHOICES, required=False, label='Numero de Voluntarios')
+    interes = forms.BooleanField(required=False,label='Organizaciones aun no has visto')
+
 
 class EditOrganization(forms.ModelForm):
     class Meta:
