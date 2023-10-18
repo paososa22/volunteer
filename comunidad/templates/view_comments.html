@@ -56,7 +56,6 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <h2 class="mb-4">Comentarios de la Organización: {{ Organitation.organization_name }}</h2>
-        
                     {% if comments %}
                     <div class="card">
                         <div class="card-body">
@@ -66,6 +65,7 @@
                                 <li class="list-group-item">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
+                                            <!-- Muestra el comentario traducido aquí -->
                                             {{ comment.text }}
                                         </div>
                                         <div class="text-muted">
@@ -80,7 +80,6 @@
                     {% else %}
                     <p class="mt-4">No hay comentarios aún.</p>
                     {% endif %}
-        
                     <div class="mt-4">
                         <a href="{% url 'ver_org' %}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left mr-2"></i> Regresar a la lista de organizaciones
@@ -92,5 +91,5 @@
         
 
     
-</body>
+    </body>
 </html>
