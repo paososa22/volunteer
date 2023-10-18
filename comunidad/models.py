@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class ExtendedData(models.Model):
     TYPE_CHOICES = [("V","Voluntario"),("R","Representante")]
     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=1,choices=TYPE_CHOICES)
+    user_type = models.CharField(max_length=1,choices=TYPE_CHOICES,blank=False,null=False)
 
 class PreferredLanguage(models.Model):
     LANGUAGE_CHOICES = [

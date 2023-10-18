@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.contrib.auth import get_user
 from django.shortcuts import render
 import requests, uuid, json
-
 # Create your views here.
 @login_required
 def inicio_comunidad(request):
@@ -99,13 +98,10 @@ def vista_org(request):
     data_context['form'] = form
     return render(request, 'vista_org.html', data_context)
 
-
-
-
 @login_required
-def get_orgdata(request,organization_id):
+def get_orgdata(request, organization_id):
     key = "243deaf16b8b4ed6b39ef52fe0ac892e"
-    endpoint ="https://api.cognitive.microsofttranslator.com/"
+    endpoint = "https://api.cognitive.microsofttranslator.com/"
     location = "eastus"
 
     path = '/translate'
@@ -117,6 +113,7 @@ def get_orgdata(request,organization_id):
         'Content-type': 'application/json',
         'X-ClientTraceId': str(uuid.uuid4())
     }
+
     organization = Organization1.objects.get(id=organization_id)
     comments = Comment.objects.filter(organization=organization).order_by('-created_date')
     comment_form = CommentForm()
@@ -126,32 +123,43 @@ def get_orgdata(request,organization_id):
 
     if request.method == 'POST' and not request.user.extendeddata.user_type == 'R':
         comment_form = CommentForm(request.POST)
-        print(comment_form.errors)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.user = request.user
             comment.organization = organization
             comment.preferred_language = request.user.preferredlanguage
-            for comment in comments:
-                source_language = comment.preferred_language.preferred_language
-                text_to_translate = comment.text
-                translation_params = {
-                    'api-version': '3.0',
-                    'from': source_language,
-                    'to': [preferred_language],
-                }
-                translation_request = requests.post(constructed_url, params=translation_params, headers=headers, json=[{'text': text_to_translate}])
-                translation_response = translation_request.json()
-                print(json.dumps(translation_response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
-                translated_comments.append(comment)
-                comment_form.save()
-            comment_form = CommentForm()
+            comment_form.save()
+
+
+    for comment in comments:
+        translated_text = translate_text(comment.text, comment.preferred_language.preferred_language, preferred_language, constructed_url, headers)
+        new_comment = Comment(organization=organization, user=comment.user, text=translated_text, preferred_language=request.user.preferredlanguage)
+        translated_comments.append(new_comment)
+
     context = {
         'Organitation': organization,
         'comments': translated_comments,
         'comment_form': comment_form,
     }
+
     return render(request, 'get_orgdata.html', context)
+
+
+
+
+
+def translate_text(text, from_language, to_language, constructed_url, headers):
+    translation_params = {
+        'api-version': '3.0',
+        'from': from_language,
+        'to': [to_language],
+    }
+    translation_request = requests.post(constructed_url, params=translation_params, headers=headers, json=[{'text': text}])
+    translation_response = translation_request.json()
+    translated_text = translation_response[0].get("translations")[0].get("text")
+    return translated_text
+
+
 
 @login_required
 def delete_organization(request, organization_id):
@@ -212,13 +220,36 @@ def update_organizationmail(request, organization_id):
 
 @login_required
 def view_comments(request, organization_id):
+    key = "243deaf16b8b4ed6b39ef52fe0ac892e"
+    endpoint = "https://api.cognitive.microsofttranslator.com/"
+    location = "eastus"
+
+    path = '/translate'
+    constructed_url = endpoint + path 
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': location,
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
     organization = Organization1.objects.get(id=organization_id)
     comments = Comment.objects.filter(organization=organization).order_by('-created_date')
+    user = get_user(request)
+    preferred_language = user.preferredlanguage.preferred_language
+    translated_comments = []
+
+    for comment in comments:
+        translated_text = translate_text(comment.text, comment.preferred_language.preferred_language, preferred_language, constructed_url, headers)
+        new_comment = Comment(organization=organization, user=comment.user, text=translated_text, preferred_language=request.user.preferredlanguage)
+        translated_comments.append(new_comment)
+
     context = {
         'Organitation': organization,
-        'comments': comments,
+        'comments': translated_comments,
     }
     return render(request, 'view_comments.html', context)
+
 
 from django.db import transaction
 
