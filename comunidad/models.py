@@ -19,7 +19,7 @@ class PreferredLanguage(models.Model):
         ('ru', 'Ruso'),
     ]
     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-    preferred_language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES, null=True) 
+    preferred_language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES,blank=False,null=False) 
 
 class Organization1(models.Model):
     TYPES_CHOICES = [
@@ -38,13 +38,13 @@ class Organization1(models.Model):
         ('30-50', '30 a 50'),
         ('+ 50', '+ 50'),
     ]
-    organization_name = models.CharField(max_length=500, validators=[RegexValidator(r'^[a-zA-Z0-9\s,.]*$', 'Ingresa un nombre válido')])
-    organization_mail = models.EmailField(max_length=300, unique=True)
-    organization_address = models.CharField(max_length=800)
+    organization_name = models.CharField(max_length=500, validators=[RegexValidator(r'^[a-zA-Z0-9\s,.]*$', 'Ingresa un nombre válido')],blank=False,null=False)
+    organization_mail = models.EmailField(max_length=300, unique=True,blank=False,null=False)
+    organization_address = models.CharField(max_length=800,blank=False,null=False)
     organization_web = models.CharField(max_length=400)
-    organization_description = models.TextField(max_length=2000)
-    organization_type = models.CharField(max_length=300, choices=TYPES_CHOICES)
-    volunteer_count = models.CharField(max_length=10, choices=VOLUNTEER_CHOICES,null=True)
+    organization_description = models.TextField(max_length=2000,blank=False,null=False)
+    organization_type = models.CharField(max_length=300, choices=TYPES_CHOICES,blank=False,null=False)
+    volunteer_count = models.CharField(max_length=10, choices=VOLUNTEER_CHOICES,blank=False,null=False)
     created_date = models.DateTimeField(default=timezone.now,blank=True , null=True)
     deleted_date = models.DateTimeField(blank=True , null=True)
     user_type = models.ForeignKey(ExtendedData, on_delete=models.CASCADE)
@@ -52,7 +52,7 @@ class Organization1(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization1, on_delete=models.CASCADE)
-    text = models.TextField()
+    text = models.TextField(blank=False,null=False)
     created_date = models.DateTimeField(default=timezone.now)
     preferred_language = models.ForeignKey(PreferredLanguage,on_delete=models.CASCADE, null=True)
     def __str__(self):
