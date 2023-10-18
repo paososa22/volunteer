@@ -194,7 +194,7 @@ def view_comments(request, organization_id):
     location = "eastus"
 
     path = '/translate'
-    constructed_url = endpoint + path
+    constructed_url = endpoint + path 
 
     headers = {
         'Ocp-Apim-Subscription-Key': key,
