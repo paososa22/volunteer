@@ -49,7 +49,7 @@ class OrgSearchForm(forms.Form):
     nombre = forms.CharField(max_length=100, required=False, label='Nombre de la organización')
     tipo = forms.ChoiceField(choices=[('', 'Sin selección')] +Organization1.TYPES_CHOICES, required=False, label='Tipo de organización')
     numero_voluntarios= forms.ChoiceField(choices=[('', 'Sin selección')] +Organization1.VOLUNTEER_CHOICES, required=False, label='Numero de Voluntarios')
-    interes = forms.BooleanField(required=False,label='Organizaciones aun no has visto')
+    interes = forms.BooleanField(required=False,label='Organizaciones que no te han interesado')
 
 
 class EditOrganization(forms.ModelForm):
