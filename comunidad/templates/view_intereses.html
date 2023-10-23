@@ -4,6 +4,8 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
+
     <title>Kindly - Org</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -84,44 +86,40 @@
                 {% else %}
                     <p>No estás interesado en ninguna organización.</p>
                 {% endif %}
-
             </div>
             <br>
         </div>
     {% endif %}
 
-
     {% if user.extendeddata.user_type == 'R' %}
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <h2 class="mb-4">Voluntarios interesados en Tu Organización:</h2>
+                    <h2 class="mb-4">Voluntarios interesados en Tu Organización: {{ organization.organization_name }}</h2>
                     {% if interesados_organizacion %}
                         <ul class="list-group">
                             {% for interesado_organizacion in interesados_organizacion %}
                                 <li class="list-group-item">
-                                    <strong>Nombre:</strong> {{ interesado_organizacion.user.username }}
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Correo:</strong> {{ interesado_organizacion.user.email }}
+                                    <strong>Nombre y Correo:</strong> {{ interesado_organizacion.user.username }} ({{ interesado_organizacion.user.email }})
                                 </li>
                             {% endfor %}
                         </ul>
                     {% else %}
                         <p>No hay voluntarios interesados en tu organización.</p>
                     {% endif %}
+
                 </div>
             </div>
         </div>
         <div class="container text-center mt-4 wow fadeInUp" data-wow-delay="0.1s">
-            <a href="{% url 'ver_org' %}" class="btn btn-secondary btn-sm">
-                <i class="fas fa-arrow-left mr-2"></i> Regresar a la lista de organizaciones
+            <a href="{% url 'org_getdata' organization_id=organization.id %}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left mr-2"></i> Regresar a {{ organization.organization_name }}
             </a>
+        </div>
     {% endif %}
-    </div>
-
 </body>
 </html>
+
 
 
 

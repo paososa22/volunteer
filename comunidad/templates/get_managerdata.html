@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
     <title>Kindly - perfil</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -32,7 +33,7 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
-<body>
+    <body>
         <div class="container-fluid bg-light p-0 wow fadeIn" data-wow-delay="0.1s">
             <div class="row gx-0 d-none d-lg-flex">
                 <div class="col-lg-7 px-3 px-lg-5 text-start">
@@ -46,6 +47,9 @@
                         <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="https://www.facebook.com/profile.php?id=61551995153297&mibextid=LQQJ4d" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="https://twitter.com/ComunidadKindly" target="_blank"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-sm rounded-circle bg-white text-primary me-0" href="https://instagram.com/comunidadkindly?igshid=MWZjMTM2ODFkZg==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-sm bg-primary text-white" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt"> Logout</i>
+                        </a>  
                     </div>
                 </div>
             </div>
@@ -55,6 +59,7 @@
                 <div class="col-md-8 text-center">
                     <h3 class="display-4">Bienvenid@ a KINDLY</h3>
                     <p class="lead">¡Hola, {{ user.username }}! Este es tu perfil</p>
+                    
                     <div class="card bg-light shadow">
                         <div class="card-body">
                             <h5 class="card-title"><i class="fas fa-user mr-2"></i> Información de Usuario</h5>
@@ -66,11 +71,11 @@
                         </div>
                     </div>
         
-
-                    <br><br>
-                    <div class="col-md-6 text-md-end">
+                    <br>
+        
+                    <div class="text-end">
                         <a href="{% url 'home' %}" class="btn btn-primary">
-                            <i class="fas fa-arrow-left mr-2"></i>Inicio
+                            <i class="fas fa-home mr-2"></i> Inicio
                         </a>
                     </div>
                 </div>
@@ -80,6 +85,7 @@
         
         
         
+        
 
-</body>
+    </body>
 </html>

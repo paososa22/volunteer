@@ -5,6 +5,8 @@
 <head>
     <meta charset="utf-8">
     <title>Kindly - Org</title>
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -85,7 +87,7 @@
                 <div class="container-fluid my-5">
                     <div class="row justify-content-start mt-5">
                         {% for organization in org_list %}
-                        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                             <a href="{% url 'org_getdata' organization_id=organization.id %}" class="team-item position-relative rounded overflow-hidden">
                                 <div class="team-text bg-light text-center p-4">
                                     <h5><a href="{% url 'org_getdata' organization_id=organization.id %}">{{ organization.organization_name }} <i class="fas fa-arrow-right"></i></a></h5>
@@ -105,9 +107,10 @@
                     </div>
                 </div>
             </div>
-            <a href="{% url 'home' %}" class="btn btn-primary" style="margin-left: 30px;">
-                <i class="fas fa-arrow-left mr-6"></i> Regresar al Inicio
+            <a href="{% url 'home' %}" class="btn btn-primary align-items-center justify-content-center" style="margin-left: 600px;">
+                <i class="fas fa-home"></i> Regresar al Inicio
             </a>
+            
         </div>
     </body>
 </html>

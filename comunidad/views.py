@@ -7,7 +7,13 @@ from django.utils import timezone
 from django.contrib.auth import get_user
 from django.shortcuts import render
 import requests, uuid, json
-# Create your views here.
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+
+# views.py
+
+
 @login_required
 def inicio_comunidad(request):
     user_request=User.objects.get(username=request.user.username)
@@ -108,26 +114,9 @@ def vista_org(request):
 
 @login_required
 def get_orgdata(request, organization_id):
-    key = "243deaf16b8b4ed6b39ef52fe0ac892e"
-    endpoint = "https://api.cognitive.microsofttranslator.com/"
-    location = "eastus"
-
-    path = '/translate'
-    constructed_url = endpoint + path
-
-    headers = {
-        'Ocp-Apim-Subscription-Key': key,
-        'Ocp-Apim-Subscription-Region': location,
-        'Content-type': 'application/json',
-        'X-ClientTraceId': str(uuid.uuid4())
-    }
-
     organization = Organization1.objects.get(id=organization_id)
     comments = Comment.objects.filter(organization=organization).order_by('-created_date')
     comment_form = CommentForm()
-    user = get_user(request)
-    preferred_language = user.preferredlanguage.preferred_language
-    translated_comments = []
 
     if request.method == 'POST' and not request.user.extendeddata.user_type == 'R':
         comment_form = CommentForm(request.POST)
@@ -138,19 +127,14 @@ def get_orgdata(request, organization_id):
             comment.preferred_language = request.user.preferredlanguage
             comment_form.save()
 
-
-    for comment in comments:
-        translated_text = translate_text(comment.text, comment.preferred_language.preferred_language, preferred_language, constructed_url, headers)
-        new_comment = Comment(organization=organization, user=comment.user, text=translated_text, preferred_language=request.user.preferredlanguage)
-        translated_comments.append(new_comment)
-
     context = {
         'Organitation': organization,
-        'comments': translated_comments,
+        'comments': comments,
         'comment_form': comment_form,
     }
 
     return render(request, 'get_orgdata.html', context)
+
 
 
 
@@ -253,10 +237,11 @@ def view_comments(request, organization_id):
         translated_comments.append(new_comment)
 
     context = {
-        'Organitation': organization,
+        'organization': organization,  # Asegúrate de usar el nombre correcto aquí
         'comments': translated_comments,
     }
     return render(request, 'view_comments.html', context)
+
 
 
 from django.db import transaction
@@ -308,20 +293,22 @@ def view_intereses(request, organization_id):
     except Organization1.DoesNotExist:
         return redirect('home')
     user_type = request.user.extendeddata.user_type
+
     if user_type == 'V':
         interesados_usuario = Interesados.objects.filter(user=request.user)
         context = {
-            'Organitation': organization,
+            'organization': organization,  # Asegúrate de usar el nombre correcto aquí
             'interesados_usuario': interesados_usuario,
         }
     elif user_type == 'R':
         interesados_organizacion = Interesados.objects.filter(organizacion=organization)
         context = {
-            'Organitation': organization,
+            'organization': organization,  # Asegúrate de usar el nombre correcto aquí
             'interesados_organizacion': interesados_organizacion,
         }
 
     return render(request, 'view_intereses.html', context)
+
 
 
 

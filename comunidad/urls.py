@@ -19,5 +19,5 @@ urlpatterns = [
     path('get_interesados/<int:organization_id>/', views.get_interesados, name='get_interesados'),
     path('view_intereses/<int:organization_id>/', views.view_intereses, name='view_intereses'),
     path('update_organizationname/<int:organization_id>/', views.update_organizationname, name='update_organizationname'),
-    path('update_organizationmail/<int:organization_id>/', views.update_organizationname, name='update_organizationmail'),
+    path('update_organizationmail/<int:organization_id>/', views.update_organizationmail, name='update_organizationmail'),
 ]

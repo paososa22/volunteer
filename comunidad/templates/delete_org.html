@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
     <title>Kindly - perfil</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -62,7 +63,7 @@
                                 {% csrf_token %}
                                 <div class="text-center">
                                     <button type="submit" name="yes" class="btn btn-danger">Sí, eliminar</button>
-                                    <a href="{% url 'ver_org' %}" class="btn btn-secondary">Cancelar</a>
+                                    <a href="{% url 'org_getdata' organization_id=organization.id %}" class="btn btn-secondary">Cancelar</a>
                                 </div>
                             </form>
                         </div>
