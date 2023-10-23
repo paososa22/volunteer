@@ -108,7 +108,7 @@
                             {{ comment_form.as_p }}
                         </div>
                         <button type="submit" class="btn btn-primary w-50 d-flex justify-content-center align-items-center">
-                            <i class="fa fa-comment mr-2">  </i> Agregar Comentario
+                            <i class="fa fa-comment mr-2">  </i> Agregar 
                         </button>
                         
                     </form>
@@ -150,10 +150,7 @@
         <ul class="list-group-flush text-center">
             <li class="list-group-item">
                 <a href="{% url 'view_comments' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">
-                    <i class="fa fa-comment"></i> Comentario
-                </a>
-                <a href="{% url 'delete_organization' Organitation.id %}" class="btn btn-outline-primary btn-block mb-2  mx-1">
-                    <i class="fas fa-trash"></i> Eliminar
+                    <i class="fa fa-comment"></i> Comentarios
                 </a>
                 <a href="{% url 'update_organizationname' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">
                     <i class="fas fa-edit"></i> Editar Nombre
@@ -165,13 +162,16 @@
                 <a href="{% url 'update_organizationmail' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">
                     <i class="fas fa-edit"></i> Editar Mail
                 </a>
+                <a href="{% url 'view_intereses' Organitation.id %}" class="btn btn-light btn-block">Interesados</a>
             </li>
             
             <li class="list-group-item list-group-flush">
                 <a href="{% url 'ver_org' %}" class="btn btn-outline-primary btn-block  mx-1">
                     <i class="fas fa-arrow-left"></i> Regresar a organizaciones
                 </a>
-                <a href="{% url 'view_intereses' Organitation.id %}" class="btn btn-light btn-block">Interesados</a>
+                <a href="{% url 'delete_organization' Organitation.id %}" class="btn btn-outline-primary btn-block mb-2  mx-1">
+                    <i class="fas fa-trash"></i> Eliminar
+                </a>
             </li>
         </ul>
         {% endif %}
