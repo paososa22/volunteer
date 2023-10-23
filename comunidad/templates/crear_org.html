@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
     <title>Kindly - Crear Organizacion</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -77,8 +78,8 @@
                             </div>
                             <div class="mb-2">
                                 <label for="organization_description" class="form-label">Descripción de la Organización</label>
-                                <textarea name="organization_description" class="form-control" id="organization_description"></textarea>
-                            </div>
+                                <textarea name="organization_description" class="form-control" id="organization_description" style="height: 150px;"></textarea>
+                            </div>                            
                             <div class="mb-2">
                                 <label for="organization_type" class="form-label">Tipo de Organización</label>
                                 <select name="organization_type" class="form-control" id="organization_type">
@@ -105,8 +106,10 @@
                             </div>
                             <br>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Registrar Organización</button>
-                                <br><br>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-building"></i> Registrar Organización
+                                </button>                                                               
+                                <br>
                                 <a style="font-family: sans-serif; font-size: smaller; color: #4395ee; text-decoration: underline;" href="{% url 'home' %}">Regresar al Inicio</a>
                             </div>
                         </form>

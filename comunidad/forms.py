@@ -2,11 +2,22 @@ from django import forms
 from .models import ExtendedData,PreferredLanguage,Organization1,Comment,Interesados
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.forms import Textarea 
+
+
 
 class AuthenticationUserForm(AuthenticationForm):
     class Meta:
         model=User
         fields = ['username','password']
+        username = forms.CharField(max_length=30, required=True)
+        password = forms.CharField(widget=forms.PasswordInput, required=True)
+
 
 class CreateUserForm(UserCreationForm):
     class Meta:

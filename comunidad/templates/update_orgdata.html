@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
     <title>Kindly - perfil</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -73,7 +74,10 @@
                     </div>
                 </div>
             </div>
-            <a href="{% url 'ver_org' %}" class="btn btn-secondary mt-3">Regresar a la lista de organizaciones</a>
+            <div class="text-center">
+                <a href="{% url 'org_getdata' organization_id=organization.id %}" class="btn btn-secondary mt-3">Regresar a {{ organization.organization_name }}</a>
+            </div>
+            
         </div>
 </body>
 </html>

@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
     <title>Kindly - comentarios </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -74,6 +75,7 @@
                                     </div>
                                 </li>
                                 {% endfor %}
+
                             </ul>
                         </div>
                     </div>
@@ -81,10 +83,11 @@
                     <p class="mt-4">No hay comentarios aún.</p>
                     {% endif %}
                     <div class="mt-4">
-                        <a href="{% url 'ver_org' %}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left mr-2"></i> Regresar a la lista de organizaciones
-                        </a>
+                        <div class="text-center">
+                            <a href="{% url 'org_getdata' organization_id=organization.id %}" class="btn btn-secondary mt-3">Regresar a {{ organization.organization_name }}</a>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

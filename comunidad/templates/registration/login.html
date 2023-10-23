@@ -1,10 +1,12 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Kindly - Login</title>
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
+    <title>Kindly - perfil</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -32,6 +34,7 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid bg-light p-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="row gx-0 d-none d-lg-flex">
@@ -43,38 +46,65 @@
             </div>
             <div class="col-lg-5 px-3 px-lg-5 text-end">
                 <div class="h-100 d-inline-flex align-items-center">
-                    <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="{% static 'https://www.facebook.com/profile.php?id=61551995153297&mibextid=LQQJ4d' %}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="https://twitter.com/ComunidadKindly"><i class="fab fa-twitter" target="_blank"></i></a>
+                    <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="https://www.facebook.com/profile.php?id=61551995153297&mibextid=LQQJ4d" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="https://twitter.com/ComunidadKindly" target="_blank"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-sm rounded-circle bg-white text-primary me-0" href="https://instagram.com/comunidadkindly?igshid=MWZjMTM2ODFkZg==" target="_blank"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-lg-6 col-md-12"> <!-- Columna principal -->
                 <div class="bg-light rounded p-5">
-                    <p class="d-inline-block border rounded-pill py-1 px-4"><i class="fa fa-id-card" aria-hidden="true"></i> Iniciar Sesión</p>
+                    <p class="d-inline-block border rounded-pill py-1 px-4">
+                        <i class="fa fa-id-card" aria-hidden="true"></i> Iniciar Sesión
+                    </p>
                     <h1 class="mb-4">¡Bienvenid@!</h1>
+                    
+                    <!-- Agrega un bloque para mostrar mensajes de error -->
+                    
                     <form action="" method="post">
                         {% csrf_token %}
                         <div class="mb-3">
                             <input type="text" name="username" class="form-control" id="username" placeholder="Usuario">
+                            {% if form.username.errors %}
+                            <p class="text-danger">{{ form.username.errors }}</p>
+                            {% endif %}
                         </div>
                         <div class="mb-3">
                             <input type="password" name="password" class="form-control" id="password" placeholder="Contraseña">
+                            {% if form.password.errors %}
+                            <p class="text-danger">{{ form.password.errors }}</p>
+                            {% endif %}
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                            <a href="{% url 'password_reset' %}" aria-hidden="true" class="btn btn-outline-info">Olvidaste tu contraseña?</a>
+                            <br>
+                            <a href="{% url 'createuser' %}" class="btn btn-outline-primary mt-3">
+                                <i class="fas fa-user-plus"></i> Crear una nueva cuenta
+                            </a>
+                            <a href="{% url 'password_reset' %}" class="btn btn-outline-primary mt-3">
+                                    <i class="fas fa-key"></i> Olvidaste tu contraseña?
+                            </a>
                         </div>
                     </form>
-                    <div class="text-center mt-2">
-                        <a href="{% url 'createuser' %}" class="btn btn-outline-info">Crear una nueva cuenta</a>
-                    </div>
+                    <br>
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for error in form.non_field_errors %}
+                                <p>El usuario o contraseña son incorrectos</p>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    
+                     
                 </div>
             </div>
-            <br>
             <div class="col-lg-6 col-md-12">
                 <div style="margin-top: 10px;">
                     <img src="{% static 'img/voluntario-login.jpg' %}" alt="Tu Foto" class="img-fluid">
@@ -83,6 +113,5 @@
         </div>
     </div>
 </body>
-
-
 </html>
+

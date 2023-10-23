@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
     <title>Kindly - Home</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -31,6 +32,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 </head>
 <body>
     <div class="container-fluid bg-light p-0 wow fadeIn" data-wow-delay="0.1s">
@@ -46,10 +48,15 @@
                     <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="https://www.facebook.com/profile.php?id=61551995153297&mibextid=LQQJ4d" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-sm rounded-circle bg-white text-primary me-1" href="https://twitter.com/ComunidadKindly" target="_blank"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-sm rounded-circle bg-white text-primary me-0" href="https://instagram.com/comunidadkindly?igshid=MWZjMTM2ODFkZg==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-sm bg-primary text-white" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"> Logout</i>
+                    </a>  
                 </div>
             </div>
         </div>
     </div>
+
+    
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
@@ -90,9 +97,6 @@
                        <p><i class="far fa-check-circle text-primary me-3"></i>Oportunidades Unicas</p>
                        <a class="btn btn-primary rounded-pill py-2 px-3 mt-3" href="{% url 'vista_org' %}">Ver Organizaciones</a>
                     {% endif %}
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{% url 'logout' %}" class="btn btn-outline-secondary btn-sm rounded-pill py-2 px-3 mt-3"><i class="fa fa-times" aria-hidden="true"> Cerrar sesión</i></a>
-                    </div>
                 </div>
             </div>
         </div>

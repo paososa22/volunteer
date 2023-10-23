@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}">
     <title>Kindly - Crear Usuario</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -104,21 +105,33 @@
                         </div>
                         <div class="mb-2">
                             <label for="preferred_language" class="form-label">Idioma Preferido</label>
-                            {{ user_language.preferred_language }}
+                            <select name="preferred_language" class="form-select" id="preferred_language">
+                                <option value="" selected disabled>Selecciona tu idioma preferido</option>
+                                <option value="es">Español</option>
+                                <option value="en">Inglés</option>
+                                <option value="fr">Francés</option>
+                                <option value="it">Italiano</option>
+                                <option value="ru">Ruso</option>
+                            </select>
                         </div>
+                        
                         <br>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Crear Usuario</button>
-                            <a href="{% url 'login' %}" class="btn btn-primary">
-                                    <i class="fas fa-arrow-left mr-2"></i> Inicio
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-user-plus"></i> Crear Usuario
+                            </button>
+                            <br>
+                            <a href="{% url 'login' %}" class="btn btn-outline-primary mt-2">
+                                <i class="bi bi-house-door"></i> Inicio
                             </a>
+                                                       
                         </div>
                     </form>
                     
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
-                <img src="{% static 'img/bosque.jpg' %}" alt="Imagen de perfil" width="85%" height="auto">
+                <img src="{% static 'img/bosque.jpg' %}" alt="Imagen de perfil" width="98%" height="auto">
             </div>
         </div>
     </div>
