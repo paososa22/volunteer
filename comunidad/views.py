@@ -115,7 +115,6 @@ def vista_org(request):
 @login_required
 def get_orgdata(request, organization_id):
     organization = Organization1.objects.get(id=organization_id)
-    comments = Comment.objects.filter(organization=organization).order_by('-created_date')
     comment_form = CommentForm()
 
     if request.method == 'POST' and not request.user.extendeddata.user_type == 'R':
@@ -127,9 +126,11 @@ def get_orgdata(request, organization_id):
             comment.preferred_language = request.user.preferredlanguage
             comment_form.save()
 
+            comment_form=CommentForm()
+
     context = {
         'Organitation': organization,
-        'comments': comments,
+        
         'comment_form': comment_form,
     }
 
