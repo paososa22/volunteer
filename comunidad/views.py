@@ -200,15 +200,15 @@ def update_organizationname(request, organization_id):
 def update_organizationmail(request, organization_id):
     organization = Organization1.objects.get(id=organization_id)
     data_context = {'organization': organization}
-    formulariomail = EditNameOrganization()
+    formulariomail = EditMailOrganization()
     data_context ['form_edit_mail'] = formulariomail
     if request.method == "POST":
-        formulariomail =EditNameOrganization(request.POST, instance=organization) 
+        formulariomail =EditMailOrganization(request.POST, instance=organization) 
         if formulariomail.is_valid():
             formulariomail.save()
-            data_context['message'] = "Nombre de organización actualizado"
+            data_context['message'] = "Mail de organización actualizado"
         else:
-            data_context['message'] = "No se pudo actualizar el nombre de la organización"
+            data_context['message'] = "No se pudo actualizar el mail de la organización"
     return render(request, 'update_orgmail.html', data_context)
 
 @login_required
