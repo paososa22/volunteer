@@ -59,4 +59,29 @@
     {% block content %}
 
     {% endblock %}
+    <!-- bot section -->
+
+    <button class="open-button" onclick=openForm()>Voli Bot!</button>
+
+    <div class="chat-popup" id="chatbotpanel">
+        <form class="form-chatbot" > 
+            <iframe class = "chatbot-window" src='https://webchat.botframework.com/embed/lenguajedsccpss-bot?s=tfySOXOdmek.02tdp4k0wVU7PyngyjN7_EaiaFXRb7e8Q26BTVXUSCo'></iframe>
+            <button type="button" class="btn_cancel" onclick=closeForm()>Cerrar Bot</button>
+        </form>
+    </div>
+
+    <!-- end bot section -->
+
+
+
+            <!-- BotScript files-->
+        <script>
+            function openForm() {
+            document.getElementById("chatbotpanel").style.display = "block";
+            }
+            
+            function closeForm() {
+            document.getElementById("chatbotpanel").style.display = "none";
+            }
+        </script>
 </body>
