@@ -94,16 +94,12 @@ def vista_org(request):
         if form.is_valid():
             nombre = form.cleaned_data.get('nombre')
             tipo = form.cleaned_data.get('tipo')
-            numero_voluntarios =form.cleaned_data.get('numero_voluntarios')
             interes = form.cleaned_data.get('interes')
             if nombre:
                 organization = organization.filter(organization_name__icontains=nombre)
             if tipo:
                 if tipo!='':
                     organization = organization.filter(organization_type=tipo)
-            if numero_voluntarios:
-                if numero_voluntarios!='':
-                    organization = organization.filter(volunteer_count=numero_voluntarios)
             if interes:
                 organization = organization.exclude(id__in=Interesados.objects.filter(user=request.user).values_list('organizacion_id', flat=True))
             data_context['org_list'] = organization
