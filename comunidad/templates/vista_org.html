@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<br>
     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
         <p class="d-inline-block border rounded-pill py-1 px-4">Organizaciones Registradas</p>
-        <h5>Da clic para ver el perfil de la organización completa</h5>
     </div>
-    <br>
-
     <div class="containera">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <div class="text-center">
                     <h3>Buscar Organizaciones</h3>
-                    <p>Aquí encontrarás todas las organizaciones</p>
+                    <p>Filtra por Nombre , Tipo y/o por las organizaciónes que aun no te interesan</p>
                 </div>
                 <form method="post">
                     {% csrf_token %}
@@ -20,17 +18,15 @@
                         {{ form.as_p }}
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
-                
-                
             </div>
         </div>
     </div>
-    
     <br>
     <div class="container-xxl py-5">
+        <h5>Da clic en la Organización para ver su perfil completo</h5>
         <div class="container">
             <div class="container-fluid my-5">
                 <div class="row justify-content-start mt-5">
