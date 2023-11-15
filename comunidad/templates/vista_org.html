@@ -15,24 +15,27 @@
     <div class="containera">
         <form method="post">
             {% csrf_token %}
-            <div class="form-row align-items-center">
-                <div class="col-sm-3 my-1">
+            <div class="form-row align-items-center justify-content-center">
+                <div class="col-sm-3 my-1 text-center">
                     {{ form.nombre.label_tag }}
                     {{ form.nombre }}
                 </div>
-                <div class="col-sm-3 my-1">
+                <div class="col-sm-3 my-1 text-center">
                     {{ form.tipo.label_tag }}
                     {{ form.tipo }}
                 </div>
-                <div class="col-sm-3 my-1">
+                <div class="col-sm-3 my-1 text-center">
+                    <br>
                     {{ form.interes.label_tag }}
                     {{ form.interes }}
                 </div>
                 <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-search">Buscar</i></button>
+                    <br>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
                 </div>
             </div>
         </form>
+        
     </div>
     <br>
     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">

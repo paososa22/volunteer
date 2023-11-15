@@ -539,11 +539,11 @@
     color: var(--primary);
 }
 
-/** extras bot section **/
+/* extras bot section */
 
 .open-button {
-    background-color: #555;
-    color: white;
+    background-color: #0463FA;
+    color: rgb(255, 254, 254);
     padding: 16px 20px;
     border: none;
     cursor: pointer;
@@ -552,7 +552,7 @@
     bottom: 23px;
     right: 30px;
     width: 280px;
-  }
+}
 
 .chat-popup {
     display: none;
@@ -560,17 +560,18 @@
     bottom: 0px;
     right: 15px;
     height: 500px;
-    border: 1px solid #f1f1f1;
+    border: 1px solid #EFF5FF;
     z-index: 9;
-  }
+}
 
 .chatbot-window {
-    min-height: 410px;  
-  }
+    min-height: 410px;
+    background-color: #ADD8E6; 
+}
 
 .btn_cancel {
-    background-color: rgb(125, 0, 0);
-    color: white;
+    background-color: #0463FA;
+    color: rgb(255, 255, 255);
     padding: 16px 20px;
     border: none;
     cursor: pointer;
@@ -579,4 +580,5 @@
     bottom: 23px;
     right: 30px;
     width: 280px;
-  }
+}
+

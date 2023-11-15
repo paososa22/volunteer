@@ -11,10 +11,12 @@
                         <form action="" method="post">
                             {% csrf_token %}
                             <div class="mb-3">
-                                {{ form_edit_name }}
+                                <label for="{{ form_edit_name.organization_name.id_for_label }}">Nombre de la organización:</label>
+                                {{ form_edit_name.organization_name }}
                             </div>
-                            <button type="submit" class="btn btn-primary">Editar Datos </button>
+                            <button type="submit" class="btn btn-primary">Editar Datos</button>
                         </form>
+                        
                         
                         <p class="mt-3">{{ message }}</p>
     
