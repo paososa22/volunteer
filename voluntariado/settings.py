@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'voluntariado.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kindly_pf',
+        'NAME': 'kindlyfinal',
         'USER': 'dscadmin',
         'PASSWORD': 'LaSalle$23',
         'HOST': 'dscmysqlcpss2023.mysql.database.azure.com',
