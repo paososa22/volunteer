@@ -38,8 +38,8 @@ class Organization1(models.Model):
         ('30-50', '30 a 50'),
         ('+ 50', '+ 50'),
     ]
-    organization_name = models.CharField(max_length=500, validators=[RegexValidator(r'^[a-zA-Z0-9\s,.]*$', 'Ingresa un nombre válido')],blank=False,null=False)
-    organization_mail = models.EmailField(max_length=300, unique=True,blank=False,null=False)
+    organization_name = models.CharField(max_length=500,validators=[RegexValidator(r'^[a-zA-Z0-9\s,.áéíóúÁÉÍÓÚüÜñÑ]*$','Ingresa un nombre válido')],blank=False,null=False,unique=True)
+    organization_mail = models.EmailField(max_length=255,unique=True,blank=False,null=False)
     organization_address = models.CharField(max_length=800,blank=False,null=False)
     organization_web = models.CharField(max_length=400)
     organization_description = models.TextField(max_length=2000,blank=False,null=False)
