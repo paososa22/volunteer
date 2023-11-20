@@ -24,29 +24,36 @@ def inicio_comunidad(request):
 
 def createuser(request):
     user_form = CreateUserForm()
-    user_profile=UserProfileForm()
-    user_language=UserLanguageForm()
+    user_profile = UserProfileForm()
+    user_language = UserLanguageForm()
     error_message = None
-    data_context = {'user_form':user_form,'user_profile':user_profile,'user_language':user_language}
-    if request.method=='POST':
-        print(request.POST)
-        user_form=CreateUserForm(request.POST)
-        user_profile=UserProfileForm(request.POST)
-        user_language=UserLanguageForm(request.POST)
-        print(user_form.errors,user_profile.errors,user_language.errors)
+    data_context = {'user_form': user_form, 'user_profile': user_profile, 'user_language': user_language}
+
+    if request.method == 'POST':
+        user_form = CreateUserForm(request.POST)
+        user_profile = UserProfileForm(request.POST)
+        user_language = UserLanguageForm(request.POST)
+        print(user_form.errors, user_profile.errors, user_language.errors)
+
         if user_form.is_valid():
             user_form.save()
             user_to_profile = User.objects.get(username=request.POST.get('username'))
-            user_extended_data = ExtendedData.objects.create(user=user_to_profile,user_type=request.POST.get('user_type'))
+            user_extended_data = ExtendedData.objects.create(user=user_to_profile, user_type=request.POST.get('user_type'))
             user_extended_data.save()
             user_to_profile = User.objects.get(username=request.POST.get('username'))
-            user_preferred_language =PreferredLanguage.objects.create(user=user_to_profile,preferred_language=request.POST.get('preferred_language'))
+            user_preferred_language = PreferredLanguage.objects.create(user=user_to_profile, preferred_language=request.POST.get('preferred_language'))
             user_preferred_language.save()
             return redirect('login')
         else:
-            error_message = "Verifica tus datos, contiene valores NO validos"
-    data_context['error_message']=error_message
-    return render(request,'create_user.html',data_context)
+            # Asignar los formularios con los datos ya ingresados y los errores al contexto
+            data_context['user_form'] = user_form
+            data_context['user_profile'] = user_profile
+            data_context['user_language'] = user_language
+            error_message = "Verifica tus datos, contiene valores NO válidos"
+
+    data_context['error_message'] = error_message
+    return render(request, 'create_user.html', data_context)
+
 
 @login_required
 def get_volunteerdata(request,user_id):
@@ -71,6 +78,7 @@ def crear_org(request):
             organizacion.user_type = request.user.extendeddata
             organizacion.save()
             data_context['message'] = "Organización registrada"
+            return redirect('home')
         else:
             data_context['message'] = "No se pudo registrar la organización , contiene datos No validos"
     return render(request, 'crear_org.html', data_context)

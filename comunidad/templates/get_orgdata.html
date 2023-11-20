@@ -50,17 +50,21 @@
             <div class="col-md-6">
                 <h3 class="mb-4"><i class="fas fa-comment-alt"></i> Testimonios</h3>
                 
-                <form method="post">
+                <form method="post" class="d-flex justify-content-center align-items-center">
                     {% csrf_token %}
                     <div class="mb-3 border rounded p-4 bg-light">
-                        <label for="{{ comment_form.comment.id_for_label }}" class="form-label">¡Nos encantaría saber tu opinión de nosotros!</label>
-                        {{ comment_form.as_p }}
+                        <label for="{{ comment_form.text.id_for_label }}" class="form-label">¡Nos encantaría saber tu opinión de nosotros!</label>
+                        {{ comment_form.text }}
+                        <button type="submit" class="btn btn-primary w-50 d-flex justify-content-center align-items-center">
+                            <i class="fas fa-plus-circle"></i> Agregar
+                        </button>
                     </div>
-                    <button type="submit" class="btn btn-primary w-50 d-flex justify-content-center align-items-center">
-                        <i class="fas fa-plus-circle"> </i>  Agregar 
-                    </button>
-                    
+                    <br>
                 </form>
+                
+                
+                
+                
             </div>
             <br><br>
             <div class="col-lg-6 wow fadeIn float-start" data-wow-delay="0.1s">
@@ -111,14 +115,14 @@
             <a href="{% url 'update_organizationmail' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">
                 <i class="fas fa-edit"></i> Editar Mail
             </a>
-            <a href="{% url 'view_intereses' Organitation.id %}" class="btn btn-light btn-block">Interesados</a>
+            <a href="{% url 'view_intereses' Organitation.id %}" class="btn btn-light btn-block mb-2  mx-1">Interesados</a>
         </li>
         
         <li class="list-group-item list-group-flush">
-            <a href="{% url 'ver_org' %}" class="btn btn-outline-primary btn-block  mx-1">
+            <a href="{% url 'ver_org' %}" class="btn btn-outline-primary btn-block mx-1">
                 <i class="fas fa-arrow-left"></i> Regresar a organizaciones
             </a>
-            <a href="{% url 'delete_organization' Organitation.id %}" class="btn btn-outline-primary btn-block mb-2  mx-1">
+            <a href="{% url 'delete_organization' Organitation.id %}" class="btn btn-outline-primary btn-block mx-1">
                 <i class="fas fa-trash"></i> Eliminar
             </a>
         </li>
